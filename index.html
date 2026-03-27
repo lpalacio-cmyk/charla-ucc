@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ley 27.799 - Presentación Unión Comercial</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    * { box-sizing: border-box; }
+
+    .slide { display: none; opacity: 0; transform: translateY(20px); }
+    .slide.active { display: flex; animation: slideIn 0.5s ease forwards; }
+    @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+
+    .point-item { opacity: 0; transform: translateX(-20px); }
+    .point-item.visible { animation: pointIn 0.4s ease forwards; }
+    @keyframes pointIn { to { opacity: 1; transform: translateX(0); } }
+
+    .progress-dot { transition: all 0.3s ease; }
+    .progress-dot.active { transform: scale(1.4); }
+
+    .icon-container svg { stroke-width: 1.5; }
+    .gauge-fill { transition: width 1s ease; }
+    body { box-sizing: border-box; }
+  </style>
+ </head>
+ <body class="h-full overflow-hidden" style="font-family: 'DM Sans', sans-serif;">
+  <div id="app" class="h-full w-full relative" style="background: #0B1120;">
+   
+   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
+    <button id="prevBtn" onclick="navigate(-1)" class="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110" style="background: rgba(255,255,255,0.1); color: #94a3b8;"> <i data-lucide="chevron-left" style="width:20px;height:20px;"></i> </button>
+    <div id="dots" class="flex gap-2"></div>
+    <button id="nextBtn" onclick="navigate(1)" class="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110" style="background: rgba(255,255,255,0.1); color: #94a3b8;"> <i data-lucide="chevron-right" style="width:20px;height:20px;"></i> </button>
+   </div>
+   
+   <div class="absolute top-5 left-6 z-50 flex items-center gap-2" style="color: #64748b; font-size: 13px;">
+    <i data-lucide="building-2" style="width:14px;height:14px;"></i> <span id="orgBadge">Unión Comercial de Catamarca</span>
+   </div>
+   <div class="absolute top-5 right-6 z-50" style="color: #475569; font-size: 12px;">
+    <span id="slideCounter">1 / 5</span>
+   </div>
+
+   <div class="slide active flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="0">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-8 flex justify-center">
+      <div class="w-28 h-28 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #0ea5e9, #6366f1); box-shadow: 0 0 60px rgba(99,102,241,0.3);"><i data-lucide="scale" style="width:52px;height:52px;color:#fff;"></i>
+      </div>
+     </div>
+     <div class="mb-4" style="color: #6366f1; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+      LEY 27.799 · PUBLICADA 2 DE ENERO 2026
+     </div>
+     <h1 id="s1Title" class="mb-6" style="font-family: 'Playfair Display', serif; font-size: clamp(28px,4.5vw,52px); font-weight: 800; color: #f1f5f9; line-height: 1.15;">El Fisco Ahora Debe<br>Demostrar Tu Culpa</h1>
+     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 17px; max-width: 620px; line-height: 1.7;">La nueva ley cambia las reglas del juego a favor del contribuyente, asumiendo su <strong style="color:#e2e8f0;">inocencia</strong> y buscando bajar costos y controles sobre tu negocio.</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center text-left max-w-2xl mx-auto">
+      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+       <div class="flex items-center gap-3 mb-2">
+        <i data-lucide="shield-check" style="width:20px;height:20px;color:#22c55e;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Inocencia Presunta</span>
+       </div>
+       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Fin de la presunción de culpabilidad. Sos inocente hasta que el fisco demuestre lo contrario.</p>
+      </div>
+      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+       <div class="flex items-center gap-3 mb-2">
+        <i data-lucide="file-check" style="width:20px;height:20px;color:#0ea5e9;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Ganancias Simplificada</span>
+       </div>
+       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Nuevo régimen para personas y sucesiones indivisas, menos trámites y más claridad.</p>
+      </div>
+      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+       <div class="flex items-center gap-3 mb-2">
+        <i data-lucide="trending-down" style="width:20px;height:20px;color:#a78bfa;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Menos Costos</span>
+       </div>
+       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">El objetivo es simplificar la recaudación y disminuir tus costos administrativos.</p>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="1">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-6 flex justify-center">
+      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #22c55e, #10b981); box-shadow: 0 0 50px rgba(34,197,94,0.25);"><i data-lucide="gauge" style="width:46px;height:46px;color:#fff;"></i>
+      </div>
+     </div>
+     <div class="mb-3" style="color: #22c55e; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+      TOPES GENEROSOS
+     </div>
+     <h2 id="s2Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">¿Quiénes Entran?<br>Tu Pyme Seguro Califica</h2>
+     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 550px; line-height: 1.7;">Diseñado para la gran mayoría de comercios locales con límites de facturación y patrimonio muy amplios.</p>
+     <div class="max-w-xl mx-auto mb-10">
+      <div class="p-6 rounded-2xl text-left" style="background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15);">
+       <div class="mb-5">
+        <div class="flex justify-between mb-2">
+         <span style="color:#94a3b8;font-size:13px;">Ingresos brutos anuales</span><span style="color:#22c55e;font-weight:700;font-size:15px;">$1.000 M</span>
+        </div>
+        <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
+         <div class="gauge-fill h-full rounded-full" style="width:70%;background:linear-gradient(90deg,#22c55e,#10b981);"></div>
+        </div>
+        <div class="mt-1 text-right" style="color:#64748b;font-size:12px;">≈ USD 700.000</div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span style="color:#94a3b8;font-size:13px;">Patrimonio neto</span><span style="color:#22c55e;font-weight:700;font-size:15px;">$10.000 M</span>
+        </div>
+        <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
+         <div class="gauge-fill h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#22c55e,#059669);"></div>
+        </div>
+        <div class="mt-1 text-right" style="color:#64748b;font-size:12px;">≈ USD 7.000.000</div>
+       </div>
+      </div>
+     </div>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto text-left">
+      <div class="point-item flex-1 p-4 rounded-xl flex items-start gap-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);"><i data-lucide="user-check" style="width:20px;height:20px;color:#22c55e;flex-shrink:0;margin-top:2px;"></i>
+       <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Personas humanas y sucesiones indivisas residentes en el país.</p>
+      </div>
+      <div class="point-item flex-1 p-4 rounded-xl flex items-start gap-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);"><i data-lucide="x-circle" style="width:20px;height:20px;color:#f87171;flex-shrink:0;margin-top:2px;"></i>
+       <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Excluidos: quienes sean categorizados como "grandes contribuyentes".</p>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="2">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-6 flex justify-center">
+      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 50px rgba(245,158,11,0.25);"><i data-lucide="lock" style="width:46px;height:46px;color:#fff;"></i>
+      </div>
+     </div>
+     <div class="mb-3" style="color: #f59e0b; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+      EFECTO LIBERATORIO
+     </div>
+     <h2 id="s3Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">El "Tapón Fiscal":<br>Pagás y Cerrás el Tema</h2>
+     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 580px; line-height: 1.7;">Si aceptás la liquidación y la pagás, obtenés un <strong style="color:#e2e8f0;">escudo legal</strong> que bloquea futuros reclamos sobre ese período.</p>
+     <div class="max-w-lg mx-auto flex flex-col gap-4 mb-8">
+      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
+       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">1</div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Adherirte voluntariamente</p>
+        <p style="color:#94a3b8;font-size:13px;">Inscribite en el Régimen Simplificado</p>
+       </div>
+      </div>
+      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
+       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">2</div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Aceptar la DDJJ de ARCA</p>
+        <p style="color:#94a3b8;font-size:13px;">Conformar la declaración jurada que te propone el organismo</p>
+       </div>
+      </div>
+      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
+       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">3</div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Pagar en tiempo y forma</p>
+        <p style="color:#94a3b8;font-size:13px;">Cumplido esto, se genera el efecto liberatorio avalado por la Corte Suprema</p>
+       </div>
+      </div>
+     </div>
+     <div class="inline-flex items-center gap-2 px-5 py-3 rounded-xl" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);"><i data-lucide="shield" style="width:18px;height:18px;color:#f59e0b;"></i> <span style="color:#fbbf24;font-size:14px;font-weight:600;">Derecho adquirido · Respaldado por la Corte Suprema</span></div>
+    </div>
+   </div>
+
+   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="3">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-6 flex justify-center gap-4">
+      <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4); box-shadow: 0 0 40px rgba(14,165,233,0.2);"><i data-lucide="eye-off" style="width:38px;height:38px;color:#fff;"></i></div>
+      <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 0 40px rgba(239,68,68,0.2);"><i data-lucide="alert-triangle" style="width:38px;height:38px;color:#fff;"></i></div>
+     </div>
+     <div class="mb-3" style="color: #0ea5e9; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+      PRIVACIDAD Y LÍMITES
+     </div>
+     <h2 id="s4Title" style="font-family: 'Playfair Display', serif; font-size: clamp(24px,3.8vw,42px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 24px;">Tu Vida Privada a Salvo<br><span style="color:#f87171;">(Pero Cuidado con las Exclusiones)</span></h2>
+     <div class="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto text-left">
+      <div class="point-item p-5 rounded-2xl" style="background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.15);">
+       <div class="flex items-center gap-2 mb-3">
+        <i data-lucide="check-circle" style="width:18px;height:18px;color:#22c55e;"></i><span style="color:#22c55e;font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE GANÁS</span>
+       </div>
+       <div class="flex flex-col gap-3">
+        <div class="flex items-start gap-3">
+         <i data-lucide="shopping-cart" style="width:16px;height:16px;color:#0ea5e9;flex-shrink:0;margin-top:3px;"></i>
+         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fin del control sobre consumos.</strong> Ya no fiscalizan tus gastos personales.</p>
+        </div>
+        <div class="flex items-start gap-3">
+         <i data-lucide="calculator" style="width:16px;height:16px;color:#0ea5e9;flex-shrink:0;margin-top:3px;"></i>
+         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fórmula clara:</strong> Solo ingresos − egresos − deducciones admitidas.</p>
+        </div>
+       </div>
+      </div>
+      <div class="point-item p-5 rounded-2xl" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
+       <div class="flex items-center gap-2 mb-3">
+        <i data-lucide="alert-circle" style="width:18px;height:18px;color:#ef4444;"></i><span style="color:#ef4444;font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE TE EXCLUYE</span>
+       </div>
+       <div class="flex flex-col gap-3">
+        <div class="flex items-start gap-3">
+         <i data-lucide="percent" style="width:16px;height:16px;color:#f87171;flex-shrink:0;margin-top:3px;"></i>
+         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">"Discrepancia Significativa":</strong> omitir ingresos por más del 15%.</p>
+        </div>
+        <div class="flex items-start gap-3">
+         <i data-lucide="file-x" style="width:16px;height:16px;color:#f87171;flex-shrink:0;margin-top:3px;"></i>
+         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Facturas apócrifas</strong> o deducciones improcedentes: expulsión sin atenuantes.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="4">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-6 flex justify-center">
+      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 0 50px rgba(239,68,68,0.3);"><i data-lucide="alert-octagon" style="width:46px;height:46px;color:#fff;"></i>
+      </div>
+     </div>
+     <div class="mb-3" style="color: #ef4444; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+      RIESGO REAL
+     </div>
+     <h2 id="s5Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">Multas Astronómicas<br>por Descuidos</h2>
+     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 550px; line-height: 1.7;">El error administrativo ahora sale carísimo. Olvidarte de presentar un papel a tiempo puede costarte <strong style="color:#fca5a5;">millones</strong>.</p>
+     <div class="flex flex-col gap-4 max-w-2xl mx-auto">
+      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
+       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(239,68,68,0.15);">
+        <i data-lucide="file-warning" style="width:26px;height:26px;color:#f87171;"></i>
+       </div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">DDJJ de IVA fuera de término</p>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Multa de <strong style="color:#fca5a5;">$220.000</strong> por persona / <strong style="color:#fca5a5;">$440.000</strong> por empresa, <em>por cada declaración</em>.</p>
+        <div class="mt-2 inline-block px-3 py-1 rounded-lg" style="background:rgba(239,68,68,0.1);">
+         <span style="color:#f87171;font-size:12px;font-weight:700;">⬆ Aumentos del 1000%</span>
+        </div>
+       </div>
+      </div>
+      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
+       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(239,68,68,0.15);">
+        <i data-lucide="book-x" style="width:26px;height:26px;color:#f87171;"></i>
+       </div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Régimen informativo (Libro IVA)</p>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Presentación tardía: multa de hasta <strong style="color:#fca5a5;">$5.000.000</strong>.</p>
+       </div>
+      </div>
+      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
+       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(245,158,11,0.1);">
+        <i data-lucide="clock" style="width:26px;height:26px;color:#fbbf24;"></i>
+       </div>
+       <div>
+        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Plazo de gracia antes de la multa</p>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">El fisco te intima y te da entre <strong style="color:#fde68a;">20 y 90 días</strong> para regularizar.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <script>
+  // State
+  let currentSlide = 0;
+  const totalSlides = 5;
+  const slides = document.querySelectorAll('.slide');
+
+  // Navigation
+  function navigate(dir) {
+    const next = currentSlide + dir;
+    if (next < 0 || next >= totalSlides) return;
+    goToSlide(next);
+  }
+
+  function goToSlide(idx) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = idx;
+    slides[currentSlide].classList.add('active');
+    updateDots();
+    document.getElementById('slideCounter').textContent = `${idx + 1} / ${totalSlides}`;
+    animatePoints();
+  }
+
+  function updateDots() {
+    const dots = document.getElementById('dots');
+    dots.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const d = document.createElement('button');
+      d.className = 'progress-dot rounded-full transition-all';
+      d.style.width = i === currentSlide ? '28px' : '8px';
+      d.style.height = '8px';
+      d.style.background = i === currentSlide ? '#6366f1' : 'rgba(255,255,255,0.15)';
+      d.onclick = () => goToSlide(i);
+      d.setAttribute('aria-label', `Diapositiva ${i + 1}`);
+      dots.appendChild(d);
+    }
+  }
+
+  function animatePoints() {
+    const items = slides[currentSlide].querySelectorAll('.point-item');
+    items.forEach((el, i) => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+    });
+  }
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  // Init
+  updateDots();
+  animatePoints();
+  lucide.createIcons();
+  </script>
+ </body>
+</html>
