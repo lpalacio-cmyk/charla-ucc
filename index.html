@@ -3,274 +3,653 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ley 27.799 - Presentación Unión Comercial</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <title>Ley 27.799 - Inocencia Fiscal · Unión Comercial de Catamarca</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
-    * { box-sizing: border-box; }
+    /* ===== DESIGN TOKENS (unchanged) ===== */
+    :root {
+      --bg-deep: #0B1120;
+      --bg-card: rgba(255,255,255,0.035);
+      --border-card: rgba(255,255,255,0.06);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #0ea5e9;
+      --accent-indigo: #6366f1;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-emerald: #10b981;
+      --wl-primary: #102250;
+      --wl-cyan: #1595BC;
+      --wl-gray: #6C6D6D;
+      --wl-green: #1C913D;
+      --wl-orange: #EA5E2D;
+    }
 
-    .slide { display: none; opacity: 0; transform: translateY(20px); }
-    .slide.active { display: flex; animation: slideIn 0.5s ease forwards; }
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg-deep); color: var(--text-primary); -webkit-font-smoothing: antialiased; }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+    button { font-family: inherit; }
+
+    /* ===== UTILITY CLASSES (replacing Tailwind CDN — ~300KB saved) ===== */
+    .h-full { height: 100%; }
+    .w-full { width: 100%; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .top-5 { top: 1.25rem; }
+    .bottom-6 { bottom: 1.5rem; }
+    .left-6 { left: 1.5rem; }
+    .right-6 { right: 1.5rem; }
+    .left-1\/2 { left: 50%; }
+    .-translate-x-1\/2 { transform: translateX(-50%); }
+    .z-50 { z-index: 50; }
+    .flex { display: flex; }
+    .inline-flex { display: inline-flex; }
+    .inline-block { display: inline-block; }
+    .grid { display: grid; }
+    .flex-col { flex-direction: column; }
+    .flex-1 { flex: 1 1 0%; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-center { justify-content: center; }
+    .justify-between { justify-content: space-between; }
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.25rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-5 { margin-bottom: 1.25rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-10 { margin-bottom: 2.5rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .p-4 { padding: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .p-6 { padding: 1.5rem; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .max-w-3xl { max-width: 48rem; }
+    .max-w-2xl { max-width: 42rem; }
+    .max-w-xl { max-width: 36rem; }
+    .max-w-lg { max-width: 32rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded-2xl { border-radius: 1rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .h-3 { height: 0.75rem; }
+    .w-14 { width: 3.5rem; }
+    .h-14 { height: 3.5rem; }
+    .w-20 { width: 5rem; }
+    .h-20 { height: 5rem; }
+    .w-24 { width: 6rem; }
+    .h-24 { height: 6rem; }
+    .w-28 { width: 7rem; }
+    .h-28 { height: 7rem; }
+
+    @media (min-width: 640px) {
+      .sm\:flex-row { flex-direction: row; }
+      .sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== SLIDE ENGINE (unchanged visual) ===== */
+    .slide { display: none; opacity: 0; transform: translateY(18px); }
+    .slide.active { display: flex; animation: slideIn 0.45s cubic-bezier(.4,0,.2,1) forwards; }
     @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
 
-    .point-item { opacity: 0; transform: translateX(-20px); }
-    .point-item.visible { animation: pointIn 0.4s ease forwards; }
+    .point-item { opacity: 0; transform: translateX(-16px); }
+    .point-item.visible { animation: pointIn 0.35s cubic-bezier(.4,0,.2,1) forwards; }
     @keyframes pointIn { to { opacity: 1; transform: translateX(0); } }
 
-    .progress-dot { transition: all 0.3s ease; }
-    .progress-dot.active { transform: scale(1.4); }
+    .progress-dot { transition: all 0.3s cubic-bezier(.4,0,.2,1); cursor: pointer; }
+    .progress-dot:hover { opacity: 0.8; }
 
-    .icon-container svg { stroke-width: 1.5; }
-    .gauge-fill { transition: width 1s ease; }
-    body { box-sizing: border-box; }
+    .gauge-fill { transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+    .gauge-fill.start { width: 0 !important; }
+
+    /* ===== CARDS (unchanged) ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .card-accent-green { background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.12); border-radius: 16px; }
+    .card-accent-amber { background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.12); border-radius: 16px; }
+    .card-accent-red { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.12); border-radius: 16px; }
+    .card-accent-blue { background: rgba(14,165,233,0.05); border: 1px solid rgba(14,165,233,0.12); border-radius: 16px; }
+    .card-accent-indigo { background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.12); border-radius: 16px; }
+
+    /* ===== COMPONENTS (unchanged) ===== */
+    .icon-box {
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px;
+      flex-shrink: 0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .icon-glow { position: relative; }
+    .icon-glow::after {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.15;
+      filter: blur(30px);
+      z-index: -1;
+    }
+    .slide-content { overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    .slide-content::-webkit-scrollbar { display: none; }
+    .balance-col { flex: 1; min-width: 0; }
+
+    .nav-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.07);
+      color: #94a3b8;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; transform: scale(1.08); }
+
+    /* ===== NEW: Top progress bar (visible from distance) ===== */
+    #progressBar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--accent-indigo);
+      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+      z-index: 100;
+    }
+
+    /* ===== NEW: Fullscreen button ===== */
+    .fs-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05);
+      color: #475569;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fs-btn:hover { background: rgba(255,255,255,0.1); color: #94a3b8; }
+
+    /* ===== NEW: Keyboard hint (fades out) ===== */
+    #keyHint {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #334155;
+      font-size: 12px;
+      z-index: 40;
+      transition: opacity 1s;
+      pointer-events: none;
+    }
+
+    /* ===== RESPONSIVE (unchanged) ===== */
+    @media (max-width: 640px) {
+      .slide-content { padding: 16px 16px 80px !important; }
+      .hero-title { font-size: 28px !important; }
+      .section-title { font-size: 24px !important; }
+    }
+
+    /* Inline SVG icon sizing */
+    .icon-box svg, [data-icon] svg { flex-shrink: 0; }
   </style>
  </head>
- <body class="h-full overflow-hidden" style="font-family: 'DM Sans', sans-serif;">
-  <div id="app" class="h-full w-full relative" style="background: #0B1120;">
-   
-   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
-    <button id="prevBtn" onclick="navigate(-1)" class="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110" style="background: rgba(255,255,255,0.1); color: #94a3b8;"> <i data-lucide="chevron-left" style="width:20px;height:20px;"></i> </button>
+ <body>
+  <div id="app" class="h-full w-full relative">
+
+   <!-- Progress bar (top, visible from distance in projector) -->
+   <div id="progressBar" style="width: 16.67%;"></div>
+
+   <!-- Top bar -->
+   <div class="absolute top-5 left-6 z-50 flex items-center gap-2" style="color: var(--text-muted); font-size: 13px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12h.01"/></svg>
+    <span>Unión Comercial de Catamarca</span>
+   </div>
+   <div class="absolute top-5 right-6 z-50 flex items-center gap-3">
+    <span id="slideCounter" style="color: #475569; font-size: 12px;">1 / 6</span>
+    <button class="fs-btn" onclick="toggleFullscreen()" aria-label="Pantalla completa" title="Pantalla completa (F)">
+     <svg id="fsIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+    </button>
+   </div>
+
+   <!-- Bottom nav -->
+   <div class="absolute bottom-6 left-1\/2 -translate-x-1\/2 z-50 flex items-center gap-4">
+    <button class="nav-btn" onclick="navigate(-1)" aria-label="Anterior">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <div id="dots" class="flex gap-2"></div>
-    <button id="nextBtn" onclick="navigate(1)" class="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110" style="background: rgba(255,255,255,0.1); color: #94a3b8;"> <i data-lucide="chevron-right" style="width:20px;height:20px;"></i> </button>
-   </div>
-   
-   <div class="absolute top-5 left-6 z-50 flex items-center gap-2" style="color: #64748b; font-size: 13px;">
-    <i data-lucide="building-2" style="width:14px;height:14px;"></i> <span id="orgBadge">Unión Comercial de Catamarca</span>
-   </div>
-   <div class="absolute top-5 right-6 z-50" style="color: #475569; font-size: 12px;">
-    <span id="slideCounter">1 / 5</span>
+    <button class="nav-btn" onclick="navigate(1)" aria-label="Siguiente">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
    </div>
 
-   <div class="slide active flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="0">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="mb-8 flex justify-center">
-      <div class="w-28 h-28 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #0ea5e9, #6366f1); box-shadow: 0 0 60px rgba(99,102,241,0.3);"><i data-lucide="scale" style="width:52px;height:52px;color:#fff;"></i>
-      </div>
-     </div>
-     <div class="mb-4" style="color: #6366f1; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
-      LEY 27.799 · PUBLICADA 2 DE ENERO 2026
-     </div>
-     <h1 id="s1Title" class="mb-6" style="font-family: 'Playfair Display', serif; font-size: clamp(28px,4.5vw,52px); font-weight: 800; color: #f1f5f9; line-height: 1.15;">El Fisco Ahora Debe<br>Demostrar Tu Culpa</h1>
-     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 17px; max-width: 620px; line-height: 1.7;">La nueva ley cambia las reglas del juego a favor del contribuyente, asumiendo su <strong style="color:#e2e8f0;">inocencia</strong> y buscando bajar costos y controles sobre tu negocio.</p>
-     <div class="flex flex-col sm:flex-row gap-4 justify-center text-left max-w-2xl mx-auto">
-      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
-       <div class="flex items-center gap-3 mb-2">
-        <i data-lucide="shield-check" style="width:20px;height:20px;color:#22c55e;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Inocencia Presunta</span>
-       </div>
-       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Fin de la presunción de culpabilidad. Sos inocente hasta que el fisco demuestre lo contrario.</p>
-      </div>
-      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
-       <div class="flex items-center gap-3 mb-2">
-        <i data-lucide="file-check" style="width:20px;height:20px;color:#0ea5e9;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Ganancias Simplificada</span>
-       </div>
-       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Nuevo régimen para personas y sucesiones indivisas, menos trámites y más claridad.</p>
-      </div>
-      <div class="point-item flex-1 p-5 rounded-2xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
-       <div class="flex items-center gap-3 mb-2">
-        <i data-lucide="trending-down" style="width:20px;height:20px;color:#a78bfa;"></i><span style="color:#e2e8f0;font-weight:600;font-size:14px;">Menos Costos</span>
-       </div>
-       <p style="color:#94a3b8;font-size:13px;line-height:1.6;">El objetivo es simplificar la recaudación y disminuir tus costos administrativos.</p>
-      </div>
-     </div>
-    </div>
-   </div>
+   <!-- Keyboard hint (disappears after first interaction) -->
+   <div id="keyHint">Espacio / → para avanzar · F para pantalla completa</div>
 
-   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="1">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="mb-6 flex justify-center">
-      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #22c55e, #10b981); box-shadow: 0 0 50px rgba(34,197,94,0.25);"><i data-lucide="gauge" style="width:46px;height:46px;color:#fff;"></i>
-      </div>
-     </div>
-     <div class="mb-3" style="color: #22c55e; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
-      TOPES GENEROSOS
-     </div>
-     <h2 id="s2Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">¿Quiénes Entran?<br>Tu Pyme Seguro Califica</h2>
-     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 550px; line-height: 1.7;">Diseñado para la gran mayoría de comercios locales con límites de facturación y patrimonio muy amplios.</p>
-     <div class="max-w-xl mx-auto mb-10">
-      <div class="p-6 rounded-2xl text-left" style="background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15);">
-       <div class="mb-5">
-        <div class="flex justify-between mb-2">
-         <span style="color:#94a3b8;font-size:13px;">Ingresos brutos anuales</span><span style="color:#22c55e;font-weight:700;font-size:15px;">$1.000 M</span>
-        </div>
-        <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
-         <div class="gauge-fill h-full rounded-full" style="width:70%;background:linear-gradient(90deg,#22c55e,#10b981);"></div>
-        </div>
-        <div class="mt-1 text-right" style="color:#64748b;font-size:12px;">≈ USD 700.000</div>
-       </div>
-       <div>
-        <div class="flex justify-between mb-2">
-         <span style="color:#94a3b8;font-size:13px;">Patrimonio neto</span><span style="color:#22c55e;font-weight:700;font-size:15px;">$10.000 M</span>
-        </div>
-        <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
-         <div class="gauge-fill h-full rounded-full" style="width:90%;background:linear-gradient(90deg,#22c55e,#059669);"></div>
-        </div>
-        <div class="mt-1 text-right" style="color:#64748b;font-size:12px;">≈ USD 7.000.000</div>
+   <!-- ========== SLIDE 1: PORTADA ========== -->
+   <div class="slide active flex-col items-center justify-center h-full w-full" data-slide="0">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-8 flex justify-center">
+       <div class="icon-box icon-glow w-28 h-28" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo)); box-shadow: 0 0 60px rgba(99,102,241,0.25);">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
        </div>
       </div>
-     </div>
-     <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto text-left">
-      <div class="point-item flex-1 p-4 rounded-xl flex items-start gap-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);"><i data-lucide="user-check" style="width:20px;height:20px;color:#22c55e;flex-shrink:0;margin-top:2px;"></i>
-       <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Personas humanas y sucesiones indivisas residentes en el país.</p>
+      <div class="mb-4" style="color: var(--accent-indigo); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       LEY 27.799 · PUBLICADA 2 DE ENERO 2026
       </div>
-      <div class="point-item flex-1 p-4 rounded-xl flex items-start gap-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);"><i data-lucide="x-circle" style="width:20px;height:20px;color:#f87171;flex-shrink:0;margin-top:2px;"></i>
-       <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Excluidos: quienes sean categorizados como "grandes contribuyentes".</p>
-      </div>
-     </div>
-    </div>
-   </div>
-
-   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="2">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="mb-6 flex justify-center">
-      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 50px rgba(245,158,11,0.25);"><i data-lucide="lock" style="width:46px;height:46px;color:#fff;"></i>
-      </div>
-     </div>
-     <div class="mb-3" style="color: #f59e0b; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
-      EFECTO LIBERATORIO
-     </div>
-     <h2 id="s3Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">El "Tapón Fiscal":<br>Pagás y Cerrás el Tema</h2>
-     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 580px; line-height: 1.7;">Si aceptás la liquidación y la pagás, obtenés un <strong style="color:#e2e8f0;">escudo legal</strong> que bloquea futuros reclamos sobre ese período.</p>
-     <div class="max-w-lg mx-auto flex flex-col gap-4 mb-8">
-      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
-       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">1</div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Adherirte voluntariamente</p>
-        <p style="color:#94a3b8;font-size:13px;">Inscribite en el Régimen Simplificado</p>
-       </div>
-      </div>
-      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
-       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">2</div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Aceptar la DDJJ de ARCA</p>
-        <p style="color:#94a3b8;font-size:13px;">Conformar la declaración jurada que te propone el organismo</p>
-       </div>
-      </div>
-      <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
-       <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#f59e0b;color:#0B1120;font-weight:800;font-size:16px;">3</div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Pagar en tiempo y forma</p>
-        <p style="color:#94a3b8;font-size:13px;">Cumplido esto, se genera el efecto liberatorio avalado por la Corte Suprema</p>
-       </div>
-      </div>
-     </div>
-     <div class="inline-flex items-center gap-2 px-5 py-3 rounded-xl" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);"><i data-lucide="shield" style="width:18px;height:18px;color:#f59e0b;"></i> <span style="color:#fbbf24;font-size:14px;font-weight:600;">Derecho adquirido · Respaldado por la Corte Suprema</span></div>
-    </div>
-   </div>
-
-   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="3">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="mb-6 flex justify-center gap-4">
-      <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4); box-shadow: 0 0 40px rgba(14,165,233,0.2);"><i data-lucide="eye-off" style="width:38px;height:38px;color:#fff;"></i></div>
-      <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 0 40px rgba(239,68,68,0.2);"><i data-lucide="alert-triangle" style="width:38px;height:38px;color:#fff;"></i></div>
-     </div>
-     <div class="mb-3" style="color: #0ea5e9; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
-      PRIVACIDAD Y LÍMITES
-     </div>
-     <h2 id="s4Title" style="font-family: 'Playfair Display', serif; font-size: clamp(24px,3.8vw,42px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 24px;">Tu Vida Privada a Salvo<br><span style="color:#f87171;">(Pero Cuidado con las Exclusiones)</span></h2>
-     <div class="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto text-left">
-      <div class="point-item p-5 rounded-2xl" style="background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.15);">
-       <div class="flex items-center gap-2 mb-3">
-        <i data-lucide="check-circle" style="width:18px;height:18px;color:#22c55e;"></i><span style="color:#22c55e;font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE GANÁS</span>
-       </div>
-       <div class="flex flex-col gap-3">
-        <div class="flex items-start gap-3">
-         <i data-lucide="shopping-cart" style="width:16px;height:16px;color:#0ea5e9;flex-shrink:0;margin-top:3px;"></i>
-         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fin del control sobre consumos.</strong> Ya no fiscalizan tus gastos personales.</p>
+      <h1 class="hero-title mb-6" style="font-family: 'Playfair Display', serif; font-size: clamp(28px,4.5vw,52px); font-weight: 800; color: var(--text-primary); line-height: 1.12;">
+       El Fisco Ahora Debe<br>Demostrar Tu Culpa
+      </h1>
+      <p class="mb-10 mx-auto" style="color: var(--text-secondary); font-size: 17px; max-width: 620px; line-height: 1.7;">
+       La nueva ley cambia las reglas del juego a favor del contribuyente, asumiendo su <strong style="color:#e2e8f0;">inocencia</strong> y buscando bajar costos y controles sobre tu negocio.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center text-left max-w-2xl mx-auto">
+       <div class="point-item flex-1 card p-5">
+        <div class="flex items-center gap-3 mb-2">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+         <span style="color:#e2e8f0;font-weight:600;font-size:14px;">Inocencia Presunta</span>
         </div>
-        <div class="flex items-start gap-3">
-         <i data-lucide="calculator" style="width:16px;height:16px;color:#0ea5e9;flex-shrink:0;margin-top:3px;"></i>
-         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fórmula clara:</strong> Solo ingresos − egresos − deducciones admitidas.</p>
-        </div>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.6;">Fin de la presunción de culpabilidad. Sos inocente hasta que el fisco demuestre lo contrario.</p>
        </div>
-      </div>
-      <div class="point-item p-5 rounded-2xl" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
-       <div class="flex items-center gap-2 mb-3">
-        <i data-lucide="alert-circle" style="width:18px;height:18px;color:#ef4444;"></i><span style="color:#ef4444;font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE TE EXCLUYE</span>
+       <div class="point-item flex-1 card p-5">
+        <div class="flex items-center gap-3 mb-2">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+         <span style="color:#e2e8f0;font-weight:600;font-size:14px;">Ganancias Simplificada</span>
+        </div>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.6;">Nuevo régimen para personas y sucesiones indivisas, menos trámites y más claridad.</p>
        </div>
-       <div class="flex flex-col gap-3">
-        <div class="flex items-start gap-3">
-         <i data-lucide="percent" style="width:16px;height:16px;color:#f87171;flex-shrink:0;margin-top:3px;"></i>
-         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">"Discrepancia Significativa":</strong> omitir ingresos por más del 15%.</p>
+       <div class="point-item flex-1 card p-5">
+        <div class="flex items-center gap-3 mb-2">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+         <span style="color:#e2e8f0;font-weight:600;font-size:14px;">Menos Costos</span>
         </div>
-        <div class="flex items-start gap-3">
-         <i data-lucide="file-x" style="width:16px;height:16px;color:#f87171;flex-shrink:0;margin-top:3px;"></i>
-         <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Facturas apócrifas</strong> o deducciones improcedentes: expulsión sin atenuantes.</p>
-        </div>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.6;">El objetivo es simplificar la recaudación y disminuir tus costos administrativos.</p>
        </div>
       </div>
      </div>
     </div>
    </div>
 
-   <div class="slide flex-col items-center justify-center h-full w-full px-8 py-16" data-slide="4">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="mb-6 flex justify-center">
-      <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 0 50px rgba(239,68,68,0.3);"><i data-lucide="alert-octagon" style="width:46px;height:46px;color:#fff;"></i>
-      </div>
-     </div>
-     <div class="mb-3" style="color: #ef4444; font-size: 13px; letter-spacing: 3px; font-weight: 600;">
-      RIESGO REAL
-     </div>
-     <h2 id="s5Title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: #f1f5f9; line-height: 1.15; margin-bottom: 8px;">Multas Astronómicas<br>por Descuidos</h2>
-     <p class="mb-10 mx-auto" style="color: #94a3b8; font-size: 16px; max-width: 550px; line-height: 1.7;">El error administrativo ahora sale carísimo. Olvidarte de presentar un papel a tiempo puede costarte <strong style="color:#fca5a5;">millones</strong>.</p>
-     <div class="flex flex-col gap-4 max-w-2xl mx-auto">
-      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(239,68,68,0.15);">
-        <i data-lucide="file-warning" style="width:26px;height:26px;color:#f87171;"></i>
+   <!-- ========== SLIDE 2: QUIÉNES ENTRAN ========== -->
+   <div class="slide flex-col items-center justify-center h-full w-full" data-slide="1">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-6 flex justify-center">
+       <div class="icon-box icon-glow w-24 h-24" style="background: linear-gradient(135deg, var(--accent-green), var(--accent-emerald)); box-shadow: 0 0 50px rgba(34,197,94,0.2);">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
        </div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">DDJJ de IVA fuera de término</p>
-        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Multa de <strong style="color:#fca5a5;">$220.000</strong> por persona / <strong style="color:#fca5a5;">$440.000</strong> por empresa, <em>por cada declaración</em>.</p>
-        <div class="mt-2 inline-block px-3 py-1 rounded-lg" style="background:rgba(239,68,68,0.1);">
-         <span style="color:#f87171;font-size:12px;font-weight:700;">⬆ Aumentos del 1000%</span>
+      </div>
+      <div class="mb-3" style="color: var(--accent-green); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       TOPES GENEROSOS
+      </div>
+      <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: var(--text-primary); line-height: 1.15; margin-bottom: 8px;">
+       ¿Quiénes Entran?<br>Tu Pyme Seguro Califica
+      </h2>
+      <p class="mb-10 mx-auto" style="color: var(--text-secondary); font-size: 16px; max-width: 550px; line-height: 1.7;">
+       Diseñado para la gran mayoría de comercios locales con límites de facturación y patrimonio muy amplios.
+      </p>
+      <div class="max-w-xl mx-auto mb-10">
+       <div class="p-6 rounded-2xl text-left card-accent-green">
+        <div class="mb-5">
+         <div class="flex justify-between mb-2">
+          <span style="color:var(--text-secondary);font-size:13px;">Ingresos brutos anuales</span>
+          <span style="color:var(--accent-green);font-weight:700;font-size:15px;">$1.000 M</span>
+         </div>
+         <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
+          <div class="gauge-fill h-3 rounded-full start" data-width="70%" style="width:70%;background:linear-gradient(90deg,#22c55e,#10b981);"></div>
+         </div>
+         <div class="mt-1 text-right" style="color:var(--text-muted);font-size:12px;">≈ USD 700.000</div>
+        </div>
+        <div>
+         <div class="flex justify-between mb-2">
+          <span style="color:var(--text-secondary);font-size:13px;">Patrimonio neto</span>
+          <span style="color:var(--accent-green);font-weight:700;font-size:15px;">$10.000 M</span>
+         </div>
+         <div class="w-full h-3 rounded-full" style="background:rgba(255,255,255,0.06);">
+          <div class="gauge-fill h-3 rounded-full start" data-width="90%" style="width:90%;background:linear-gradient(90deg,#22c55e,#059669);"></div>
+         </div>
+         <div class="mt-1 text-right" style="color:var(--text-muted);font-size:12px;">≈ USD 7.000.000</div>
         </div>
        </div>
       </div>
-      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(239,68,68,0.15);">
-        <i data-lucide="book-x" style="width:26px;height:26px;color:#f87171;"></i>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto text-left">
+       <div class="point-item flex-1 card p-4 flex items-start gap-3">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+        <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Personas humanas y sucesiones indivisas residentes en el país.</p>
        </div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Régimen informativo (Libro IVA)</p>
-        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Presentación tardía: multa de hasta <strong style="color:#fca5a5;">$5.000.000</strong>.</p>
-       </div>
-      </div>
-      <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(245,158,11,0.1);">
-        <i data-lucide="clock" style="width:26px;height:26px;color:#fbbf24;"></i>
-       </div>
-       <div>
-        <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Plazo de gracia antes de la multa</p>
-        <p style="color:#94a3b8;font-size:13px;line-height:1.5;">El fisco te intima y te da entre <strong style="color:#fde68a;">20 y 90 días</strong> para regularizar.</p>
+       <div class="point-item flex-1 card p-4 flex items-start gap-3">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Excluidos: quienes sean categorizados como "grandes contribuyentes".</p>
        </div>
       </div>
      </div>
     </div>
    </div>
+
+   <!-- ========== SLIDE 3: TAPÓN FISCAL ========== -->
+   <div class="slide flex-col items-center justify-center h-full w-full" data-slide="2">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-6 flex justify-center">
+       <div class="icon-box icon-glow w-24 h-24" style="background: linear-gradient(135deg, var(--accent-amber), #d97706); box-shadow: 0 0 50px rgba(245,158,11,0.2);">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+       </div>
+      </div>
+      <div class="mb-3" style="color: var(--accent-amber); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       EFECTO LIBERATORIO
+      </div>
+      <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: var(--text-primary); line-height: 1.15; margin-bottom: 8px;">
+       El "Tapón Fiscal":<br>Pagás y Cerrás el Tema
+      </h2>
+      <p class="mb-10 mx-auto" style="color: var(--text-secondary); font-size: 16px; max-width: 580px; line-height: 1.7;">
+       Si aceptás la liquidación y la pagás, obtenés un <strong style="color:#e2e8f0;">escudo legal</strong> que bloquea futuros reclamos sobre ese período.
+      </p>
+      <div class="max-w-lg mx-auto flex flex-col gap-4 mb-8">
+       <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left card-accent-amber">
+        <div class="step-num" style="background:var(--accent-amber);color:#0B1120;">1</div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Adherirte voluntariamente</p>
+         <p style="color:var(--text-secondary);font-size:13px;">Inscribite en el Régimen Simplificado</p>
+        </div>
+       </div>
+       <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left card-accent-amber">
+        <div class="step-num" style="background:var(--accent-amber);color:#0B1120;">2</div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Aceptar la DDJJ de ARCA</p>
+         <p style="color:var(--text-secondary);font-size:13px;">Conformar la declaración jurada que te propone el organismo</p>
+        </div>
+       </div>
+       <div class="point-item flex items-center gap-4 p-5 rounded-2xl text-left card-accent-amber">
+        <div class="step-num" style="background:var(--accent-amber);color:#0B1120;">3</div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:600;font-size:14px;">Pagar en tiempo y forma</p>
+         <p style="color:var(--text-secondary);font-size:13px;">Cumplido esto, se genera el efecto liberatorio avalado por la Corte Suprema</p>
+        </div>
+       </div>
+      </div>
+      <div class="badge" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">
+       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+       <span style="color:#fbbf24;font-size:14px;">Derecho adquirido · Respaldado por la Corte Suprema</span>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- ========== SLIDE 4: PRIVACIDAD Y EXCLUSIONES ========== -->
+   <div class="slide flex-col items-center justify-center h-full w-full" data-slide="3">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-6 flex justify-center gap-4">
+       <div class="icon-box w-20 h-20" style="background: linear-gradient(135deg, var(--accent-blue), #06b6d4); box-shadow: 0 0 40px rgba(14,165,233,0.15);">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+       </div>
+       <div class="icon-box w-20 h-20" style="background: linear-gradient(135deg, var(--accent-red), #dc2626); box-shadow: 0 0 40px rgba(239,68,68,0.15);">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+       </div>
+      </div>
+      <div class="mb-3" style="color: var(--accent-blue); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       PRIVACIDAD Y LÍMITES
+      </div>
+      <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: clamp(24px,3.8vw,42px); font-weight: 800; color: var(--text-primary); line-height: 1.15; margin-bottom: 24px;">
+       Tu Vida Privada a Salvo<br><span style="color:#f87171;">(Pero Cuidado con las Exclusiones)</span>
+      </h2>
+      <div class="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto text-left">
+       <div class="point-item p-5 rounded-2xl card-accent-blue">
+        <div class="flex items-center gap-2 mb-3">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+         <span style="color:var(--accent-green);font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE GANÁS</span>
+        </div>
+        <div class="flex flex-col gap-3">
+         <div class="flex items-start gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fin del control sobre consumos.</strong> Ya no fiscalizan tus gastos personales.</p>
+         </div>
+         <div class="flex items-start gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+          <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Fórmula clara:</strong> Solo ingresos − egresos − deducciones admitidas.</p>
+         </div>
+        </div>
+       </div>
+       <div class="point-item p-5 rounded-2xl card-accent-red">
+        <div class="flex items-center gap-2 mb-3">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+         <span style="color:var(--accent-red);font-weight:700;font-size:13px;letter-spacing:1px;">LO QUE TE EXCLUYE</span>
+        </div>
+        <div class="flex flex-col gap-3">
+         <div class="flex items-start gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+          <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">"Discrepancia Significativa":</strong> omitir ingresos por más del 15%.</p>
+         </div>
+         <div class="flex items-start gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="9.5" y1="12.5" x2="14.5" y2="17.5"/><line x1="14.5" y1="12.5" x2="9.5" y2="17.5"/></svg>
+          <p style="color:#cbd5e1;font-size:13px;line-height:1.6;"><strong style="color:#e2e8f0;">Facturas apócrifas</strong> o deducciones improcedentes: expulsión sin atenuantes.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- ========== SLIDE 5: MULTAS ========== -->
+   <div class="slide flex-col items-center justify-center h-full w-full" data-slide="4">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-6 flex justify-center">
+       <div class="icon-box icon-glow w-24 h-24" style="background: linear-gradient(135deg, var(--accent-red), #b91c1c); box-shadow: 0 0 50px rgba(239,68,68,0.25);">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+       </div>
+      </div>
+      <div class="mb-3" style="color: var(--accent-red); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       RIESGO REAL
+      </div>
+      <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,44px); font-weight: 800; color: var(--text-primary); line-height: 1.15; margin-bottom: 8px;">
+       Multas Astronómicas<br>por Descuidos
+      </h2>
+      <p class="mb-10 mx-auto" style="color: var(--text-secondary); font-size: 16px; max-width: 550px; line-height: 1.7;">
+       El error administrativo ahora sale carísimo. Olvidarte de presentar un papel a tiempo puede costarte <strong style="color:#fca5a5;">millones</strong>.
+      </p>
+      <div class="flex flex-col gap-4 max-w-2xl mx-auto">
+       <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4 card-accent-red">
+        <div class="icon-box w-14 h-14" style="background:rgba(239,68,68,0.12);border-radius:14px;">
+         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" transform="scale(.45) translate(18,22)"/></svg>
+        </div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">DDJJ de IVA fuera de término</p>
+         <p style="color:var(--text-secondary);font-size:13px;line-height:1.5;">Multa de <strong style="color:#fca5a5;">$220.000</strong> por persona / <strong style="color:#fca5a5;">$440.000</strong> por empresa, <em>por cada declaración</em>.</p>
+         <div class="mt-2 inline-block px-3 py-1 rounded-lg" style="background:rgba(239,68,68,0.1);">
+          <span style="color:#f87171;font-size:12px;font-weight:700;">⬆ Aumentos del 1000%</span>
+         </div>
+        </div>
+       </div>
+       <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4 card-accent-red">
+        <div class="icon-box w-14 h-14" style="background:rgba(239,68,68,0.12);border-radius:14px;">
+         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9.5" y1="8.5" x2="14.5" y2="13.5"/><line x1="14.5" y1="8.5" x2="9.5" y2="13.5"/></svg>
+        </div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Régimen informativo (Libro IVA)</p>
+         <p style="color:var(--text-secondary);font-size:13px;line-height:1.5;">Presentación tardía: multa de hasta <strong style="color:#fca5a5;">$5.000.000</strong>.</p>
+        </div>
+       </div>
+       <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4 card-accent-amber">
+        <div class="icon-box w-14 h-14" style="background:rgba(245,158,11,0.1);border-radius:14px;">
+         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Plazo de gracia antes de la multa</p>
+         <p style="color:var(--text-secondary);font-size:13px;line-height:1.5;">El fisco te intima y te da entre <strong style="color:#fde68a;">20 y 90 días</strong> para regularizar según tu conducta tributaria.</p>
+        </div>
+       </div>
+       <div class="point-item p-5 rounded-2xl text-left flex items-start gap-4" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:16px;">
+        <div class="icon-box w-14 h-14" style="background:rgba(34,197,94,0.1);border-radius:14px;">
+         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+        </div>
+        <div>
+         <p style="color:#e2e8f0;font-weight:700;font-size:15px;margin-bottom:4px;">Salvavidas: reducción del 50%</p>
+         <p style="color:var(--text-secondary);font-size:13px;line-height:1.5;">Si pagás la totalidad dentro de los <strong style="color:#86efac;">15 días</strong> posteriores al vencimiento.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- ========== SLIDE 6: VENTAJAS Y DESVENTAJAS ========== -->
+   <div class="slide flex-col items-center justify-center h-full w-full" data-slide="5">
+    <div class="slide-content flex flex-col items-center justify-center h-full w-full px-8 py-16">
+     <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-6 flex justify-center">
+       <div class="icon-box icon-glow w-24 h-24" style="background: linear-gradient(135deg, var(--accent-indigo), #8b5cf6); box-shadow: 0 0 50px rgba(99,102,241,0.2);">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+       </div>
+      </div>
+      <div class="mb-3" style="color: var(--accent-indigo); font-size: 13px; letter-spacing: 3px; font-weight: 600;">
+       LA BALANZA
+      </div>
+      <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: clamp(24px,3.8vw,42px); font-weight: 800; color: var(--text-primary); line-height: 1.15; margin-bottom: 8px;">
+       ¿Conviene Adherirse<br>al Régimen en 2025?
+      </h2>
+      <p class="mb-10 mx-auto" style="color: var(--text-secondary); font-size: 16px; max-width: 600px; line-height: 1.7;">
+       Una excelente oportunidad para limpiar el pasado y proteger tu patrimonio, pero exige una <strong style="color:#e2e8f0;">administración interna impecable</strong>.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-5 max-w-3xl mx-auto text-left">
+       <!-- Ventajas -->
+       <div class="balance-col">
+        <div class="point-item p-5 rounded-2xl card-accent-green" style="height:100%;">
+         <div class="flex items-center gap-2 mb-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+          <span style="color:var(--accent-green);font-weight:700;font-size:14px;letter-spacing:1px;">VENTAJAS</span>
+         </div>
+         <div class="flex flex-col gap-3">
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Cobertura frente a inspecciones por los años <strong style="color:#e2e8f0;">2022, 2023 y 2024</strong>.</p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Se elimina la fiscalización de tus <strong style="color:#e2e8f0;">gastos personales</strong>.</p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Blanquear hasta <strong style="color:#e2e8f0;">USD 700.000</strong> en ventas no declaradas.</p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Tolerancia de discrepancias de hasta un <strong style="color:#e2e8f0;">15%</strong>.</p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Desventajas -->
+       <div class="balance-col">
+        <div class="point-item p-5 rounded-2xl card-accent-red" style="height:100%;">
+         <div class="flex items-center gap-2 mb-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+          <span style="color:var(--accent-red);font-weight:700;font-size:14px;letter-spacing:1px;">DESVENTAJAS</span>
+         </div>
+         <div class="flex flex-col gap-3">
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Multas con aumento del <strong style="color:#e2e8f0;">1000%</strong> — mínimo $220.000 por DDJJ tardía.</p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="9.5" y1="12.5" x2="14.5" y2="17.5"/><line x1="14.5" y1="12.5" x2="9.5" y2="17.5"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Mayor <strong style="color:#e2e8f0;">control de facturas apócrifas</strong>.</p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">El fisco declara, nosotros corroboramos: <strong style="color:#e2e8f0;">¿fin del régimen autodeterminativo?</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+           <p style="color:#cbd5e1;font-size:13px;line-height:1.6;">Obliga a <strong style="color:#e2e8f0;">jerarquizar la administración interna</strong> de tu Pyme.</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
   </div>
 
   <script>
-  // State
-  let currentSlide = 0;
-  const totalSlides = 5;
+  /* ===== SLIDE ENGINE ===== */
   const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length; // Dynamic, not hardcoded
+  const accentColors = ['#6366f1','#22c55e','#f59e0b','#0ea5e9','#ef4444','#6366f1'];
+  let currentSlide = 0;
+  let hintVisible = true;
 
-  // Navigation
+  function hideHint() {
+    if (!hintVisible) return;
+    hintVisible = false;
+    const h = document.getElementById('keyHint');
+    if (h) { h.style.opacity = '0'; setTimeout(() => h.remove(), 1000); }
+  }
+
   function navigate(dir) {
+    hideHint();
     const next = currentSlide + dir;
     if (next < 0 || next >= totalSlides) return;
     goToSlide(next);
   }
 
   function goToSlide(idx) {
+    hideHint();
     slides[currentSlide].classList.remove('active');
     currentSlide = idx;
     slides[currentSlide].classList.add('active');
     updateDots();
+    updateProgress();
     document.getElementById('slideCounter').textContent = `${idx + 1} / ${totalSlides}`;
     animatePoints();
+    animateGauges();
+  }
+
+  function updateProgress() {
+    const pct = ((currentSlide + 1) / totalSlides) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    // Update bar color to match slide accent
+    document.getElementById('progressBar').style.background = accentColors[currentSlide] || accentColors[0];
   }
 
   function updateDots() {
@@ -278,10 +657,10 @@
     dots.innerHTML = '';
     for (let i = 0; i < totalSlides; i++) {
       const d = document.createElement('button');
-      d.className = 'progress-dot rounded-full transition-all';
+      d.className = 'progress-dot rounded-full';
       d.style.width = i === currentSlide ? '28px' : '8px';
       d.style.height = '8px';
-      d.style.background = i === currentSlide ? '#6366f1' : 'rgba(255,255,255,0.15)';
+      d.style.background = i === currentSlide ? accentColors[i] : 'rgba(255,255,255,0.12)';
       d.onclick = () => goToSlide(i);
       d.setAttribute('aria-label', `Diapositiva ${i + 1}`);
       dots.appendChild(d);
@@ -292,20 +671,98 @@
     const items = slides[currentSlide].querySelectorAll('.point-item');
     items.forEach((el, i) => {
       el.classList.remove('visible');
-      setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+      setTimeout(() => el.classList.add('visible'), 150 + i * 120);
     });
   }
 
-  // Keyboard nav
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  function animateGauges() {
+    const gauges = slides[currentSlide].querySelectorAll('.gauge-fill');
+    gauges.forEach(g => {
+      g.classList.add('start');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          g.style.width = g.dataset.width;
+          g.classList.remove('start');
+        });
+      });
+    });
+  }
+
+  /* ===== FULLSCREEN ===== */
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    const icon = document.getElementById('fsIcon');
+    if (document.fullscreenElement) {
+      icon.innerHTML = '<polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/>';
+    } else {
+      icon.innerHTML = '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>';
+    }
   });
 
-  // Init
+  /* ===== KEYBOARD (expanded) ===== */
+  document.addEventListener('keydown', e => {
+    switch(e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':       // Space to advance (standard in presentations)
+      case 'Enter':
+        e.preventDefault();
+        navigate(1);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+      case 'Backspace':
+        e.preventDefault();
+        navigate(-1);
+        break;
+      case 'f':
+      case 'F':
+        if (!e.ctrlKey && !e.metaKey) toggleFullscreen();
+        break;
+      case 'Escape':
+        if (document.fullscreenElement) document.exitFullscreen();
+        break;
+      case 'Home':
+        e.preventDefault();
+        goToSlide(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        goToSlide(totalSlides - 1);
+        break;
+    }
+  });
+
+  /* ===== TOUCH SWIPE ===== */
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    // Only trigger if horizontal swipe is dominant
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      navigate(dx > 0 ? -1 : 1);
+    }
+  }, { passive: true });
+
+  /* ===== INIT ===== */
   updateDots();
+  updateProgress();
   animatePoints();
-  lucide.createIcons();
+
+  // Auto-hide hint after 6 seconds
+  setTimeout(() => { if (hintVisible) hideHint(); }, 6000);
   </script>
  </body>
 </html>
